@@ -7,7 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Ots.Base">
+      <HintPath>..\Ots.Base\obj\Debug\net8.0\Ots.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Ots.Schema">
+      <HintPath>..\Ots.Schema\bin\Debug\net8.0\Ots.Schema.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
