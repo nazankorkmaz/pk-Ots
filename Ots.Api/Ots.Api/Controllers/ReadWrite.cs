@@ -4,7 +4,7 @@
 
 namespace Ots.Api.Controllers
 {
-    [Route("api/[controller]")]   // Route : bu apiye ulasirken kullanacagimiz api path
+    [Route("api/[controller]s")]   // Route : bu apiye ulasirken kullanacagimiz api path
     [ApiController]  //bu attribure ustteki de
     public class ReadWrite : ControllerBase
     {
@@ -18,6 +18,25 @@ namespace Ots.Api.Controllers
         // GET api/<ReadWrite>/5
         [HttpGet("{id}")]
         public string Get(int id)
+        {
+            return "value";
+        }
+
+        
+        [HttpGet("GetById1/{id}")]
+        public string GetById1(int id)
+        {
+            return "value";
+        }
+         
+        [HttpGet("GetById2")]
+        public string GetById2([FromRoute]int id)
+        {
+            return "value";
+        }
+
+        [HttpGet("GetById3")] // query kısmı opsiyoneldir
+        public string GetById3([FromQuery]int id)
         {
             return "value";
         }
