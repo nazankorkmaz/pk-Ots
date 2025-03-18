@@ -8,7 +8,7 @@ namespace Ots.Api.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 
-[Table("Account", Schema = "dbo")]
+[Table("Account", Schema = "dbo")] // bununl aaccount tablein adini istedigin gibi degistirebilirsin
 public class Account : BaseEntity
 {
     public long CustomerId { get; set; }
@@ -21,8 +21,8 @@ public class Account : BaseEntity
     public string CurrencyCode { get; set; }
     public DateTime OpenDate { get; set; }
     public DateTime? CloseDate { get; set; }
-
-}
+    public virtual List<AccountTransaction> AccountTransactions { get; set; }
+}   
 
 
 public class AccountConfiguration : IEntityTypeConfiguration<Account>
@@ -31,6 +31,13 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).UseIdentityColumn();
+
+        //baseden gelen alanlar
+        builder.Property(x=> x.InsertedDate).IsRequired(true);
+        builder.Property(x=> x.UpdatedDate).IsRequired(false);
+        builder.Property(x=> x.InsertedUser).IsRequired(true).HasMaxLength(250);
+        builder.Property(x=> x.UpdatedUser).IsRequired(false).HasMaxLength(250);
+        builder.Property(x=> x.IsActive).IsRequired(true).HasDefaultValue(true);
    
         builder.Property(x=> x.CustomerId).IsRequired(true);
         builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
@@ -41,5 +48,11 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
         builder.Property(x => x.OpenDate).IsRequired();
         builder.Property(x => x.CloseDate).IsRequired(true);
 
+        builder.HasIndex(x => x.AccountNumber).IsUnique(true);
+
+        builder.HasMany(x => x.AccountTransactions)
+            .WithOne(x => x.Account)
+            .HasForeignKey(x => x.AccountId).IsRequired(true).OnDelete(DeleteBehavior.Cascade);
+        // isRequired yani accountTransactionda accountId'si bos olan bir kayit olmasin
     }
 }
