@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+      <ItemGroup>
+      <ProjectReference Include="..\Ots.Base\Ots.Base.csproj" />
+    </ItemGroup>
+
 </Project>

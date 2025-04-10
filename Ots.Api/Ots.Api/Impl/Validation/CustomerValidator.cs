@@ -1,12 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using FluentValidation;
+using Ots.Api.Domain;
+using Ots.Schema;
 
-namespace Ots.Api.Impl.Validation
+namespace Ots.Api.Impl.Validation;
+
+public class CustomerValidator : AbstractValidator<CustomerRequest>
 {
-    public class CustomerValidator
+    public CustomerValidator()
     {
-        
+        RuleFor(x => x.FirstName).MinimumLength(2).MaximumLength(50);
+        When(x => !string.IsNullOrEmpty(x.MiddleName), () => RuleFor(x => x.MiddleName).MinimumLength(2).MaximumLength(50));
+        RuleFor(x => x.LastName).MinimumLength(2).MaximumLength(50);
+        RuleFor(x => x.Email).EmailAddress();
+        RuleFor(x => x.IdentityNumber).MinimumLength(11).MaximumLength(11);        
     }
 }
