@@ -121,4 +121,13 @@ public class CustomersController : ControllerBase
         return result;
     }
 
+       [HttpGet("ByParameters")]
+    
+     public async Task<ApiResponse<List<CustomerResponse>>> GetByParameters([FromQuery] string? firstName, [FromQuery] string? lastName, [FromQuery] string? email)
+     {
+         var operation = new GetCustomerByParametersQuery(firstName, lastName, email);
+         var result = await mediator.Send(operation);
+         return result;
+     }
+
 }

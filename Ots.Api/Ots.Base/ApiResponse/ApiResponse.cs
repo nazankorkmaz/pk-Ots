@@ -27,7 +27,7 @@ public class ApiResponse
     public Guid ReferenceNo { get; set; } = Guid.NewGuid();
 }
 
-public class ApiResponse<T>
+public class ApiResponse<T>  // burada T isminde bir tip dönülüyor
 {
     public DateTime ServerDate { get; set; } = DateTime.UtcNow;
     public Guid ReferenceNo { get; set; } = Guid.NewGuid();

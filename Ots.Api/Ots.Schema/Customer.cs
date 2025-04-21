@@ -20,4 +20,8 @@ public class CustomerResponse : BaseResponse
     public string IdentityNumber { get; set; }
     public int CustomerNumber { get; set; }
     public DateTime OpenDate { get; set; }
+
+    public virtual List<CustomerAddressResponse> CustomerAddresses { get; set; }
+    public virtual List<CustomerPhoneResponse> CustomerPhones { get; set; }
+    public virtual List<AccountResponse> Accounts { get; set; }
 }
