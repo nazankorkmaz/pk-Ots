@@ -18,3 +18,6 @@ public class AccountTransactionResponse : BaseResponse
     public string ReferenceNumber { get; set; }
     public string? TransferType { get; set; }
 }
+
+
+ 
