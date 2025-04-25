@@ -10,6 +10,8 @@ using Ots.Api.Mapper;
 using Ots.Base;
 using Ots.Api.Middleware;
 
+
+using Ots.Api.Impl.Service;
 namespace Ots.Api;
 
 public class Startup
@@ -41,6 +43,8 @@ public class Startup
         services.AddScoped<ScopedService>();
         services.AddTransient<TransientService>();
         services.AddSingleton<SingletonService>();
+
+        services.AddScoped<IAccountService, AccountService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

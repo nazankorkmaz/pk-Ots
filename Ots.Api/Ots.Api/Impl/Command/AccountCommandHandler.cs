@@ -32,6 +32,9 @@ using AutoMapper;
              return new ApiResponse("Account is not active");
  
          entity.IsActive = false;
+         entity.CloseDate = DateTime.Now;
+         entity.UpdatedDate = DateTime.Now;
+         entity.UpdatedUser = null;
  
          await dbContext.SaveChangesAsync(cancellationToken);
          return new ApiResponse();
@@ -61,7 +64,7 @@ using AutoMapper;
          mapped.InsertedUser = "test";
          mapped.IsActive = true;
          mapped.AccountNumber = new Random().Next(100000000, 999999999);
-         mapped.IBAN = "TR" + mapped.AccountNumber.ToString("D10");
+         mapped.IBAN = "TR" + mapped.AccountNumber.ToString("D20");
          mapped.Balance = 0;
          mapped.OpenDate = DateTime.Now;
          
