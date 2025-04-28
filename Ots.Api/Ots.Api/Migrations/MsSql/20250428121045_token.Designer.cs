@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Ots.Api;
@@ -12,9 +13,11 @@ using Ots.Api;
 namespace Ots.Api.Migrations.MsSql
 {
     [DbContext(typeof(OtsMsSqlDbContext))]
-    partial class OtsMsSqlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250428121045_token")]
+    partial class token
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

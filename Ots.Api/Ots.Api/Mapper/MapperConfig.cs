@@ -44,5 +44,7 @@ public class MapperConfig : Profile
         .ForMember(dest => dest.AccountName, opt => opt.MapFrom(src => src.Account.Name))
         .ForMember(dest => dest.AccountNumber, opt => opt.MapFrom(src => src.Account.AccountNumber));
 
+         CreateMap<UserRequest, User>();
+         CreateMap<User, UserResponse>();
     }
 }
