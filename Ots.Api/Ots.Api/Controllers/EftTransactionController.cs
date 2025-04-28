@@ -3,12 +3,15 @@ using MediatR;
  using Ots.Api.Impl.Cqrs;
  using Ots.Base;
  using Ots.Schema;
+
+ using Microsoft.AspNetCore.Authorization;
  
  namespace Ots.Api.Controllers;
  
  
  [ApiController]
  [Route("api/[controller]")]
+ [Authorize]
  public class EftTransactionsController : ControllerBase
  {
      private readonly IMediator mediator;

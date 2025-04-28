@@ -69,10 +69,11 @@ using Ots.Base;
 using Ots.Schema;
 
 namespace Ots.Api.Controllers;
-
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class CustomersController : ControllerBase
 {
     private readonly IMediator mediator;

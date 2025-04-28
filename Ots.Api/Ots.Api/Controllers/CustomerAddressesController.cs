@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Ots.Api.Domain;
 namespace Ots.Api.Controllers;
 
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class CustomerAddresssController : ControllerBase
 {
     private readonly IMediator mediator;
