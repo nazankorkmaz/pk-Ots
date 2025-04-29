@@ -18,6 +18,7 @@ using Microsoft.OpenApi.Models;
 
 
 using Ots.Api.Impl.Service;
+using Ots.Api.Impl;
 namespace Ots.Api;
 
 public class Startup
@@ -61,6 +62,8 @@ public class Startup
         services.AddScoped<IAccountService, AccountService>();
 
         services.AddScoped<ITokenService, TokenService>();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
          services.AddAuthentication(x =>
          {
