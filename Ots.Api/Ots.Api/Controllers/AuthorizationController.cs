@@ -5,6 +5,8 @@ using MediatR;
  using Ots.Base;
  using Ots.Schema;
  
+ using Ots.Api.Filter;
+
  namespace Ots.Api.Controllers;
  
  
@@ -19,6 +21,11 @@ using MediatR;
      }
  
      [HttpPost("Token")]
+     [TypeFilter(typeof(LogResourceFilter))]
+     [TypeFilter(typeof(LogActionFilter))]
+     [TypeFilter(typeof(LogAuthorizationFilter))]
+     [TypeFilter(typeof(LogResultFilter))]
+     [TypeFilter(typeof(LogExceptionFilter))]
      public async Task<ApiResponse<AuthorizationResponse>> Post([FromBody] AuthorizationRequest request)
      {
          var operation = new CreateAuthorizationTokenCommand(request);

@@ -17,6 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 
+using Serilog;
+
 using Ots.Api.Impl.Service;
 using Ots.Api.Impl;
 namespace Ots.Api;
@@ -142,8 +144,16 @@ public class Startup
         
         app.UseMiddleware<HeartBeatMiddleware>();
         app.UseMiddleware<ErrorHandlerMiddleware>();
-        app.UseMiddleware<RequestLoggingMiddleware>();
-
+        //app.UseMiddleware<RequestLoggingMiddleware>();
+         Action<RequestProfilerModel> requestResponseHandler = requestProfilerModel =>
+         {
+             Log.Information("-------------Request-Begin------------");
+             Log.Information(requestProfilerModel.Request);
+             Log.Information(Environment.NewLine);
+             Log.Information(requestProfilerModel.Response);
+             Log.Information("-------------Request-End------------");
+         };
+         app.UseMiddleware<RequestLoggingMiddleware>(requestResponseHandler);
 
         app.UseHttpsRedirection();
 
