@@ -11,7 +11,7 @@ using MediatR;
  
  [ApiController]
  [Route("api/[controller]")]
- [Authorize]
+// [Authorize]
  public class EftTransactionsController : ControllerBase
  {
      private readonly IMediator mediator;
@@ -22,6 +22,7 @@ using MediatR;
      }
  
      [HttpGet("GetByParameters")]
+     [Authorize(Roles = "admin,user")]
      public async Task<ApiResponse<List<EftTransactionResponse>>> GetByParameters()
      {
          var operation = new GetEftTransactionByParametersQuery();
@@ -30,6 +31,7 @@ using MediatR;
      }
  
      [HttpGet("GetById/{id}")]
+     [Authorize(Roles = "admin,user")]
      public async Task<ApiResponse<EftTransactionResponse>> GetByIdAsync([FromRoute] int id)
      {
          var operation = new GetEftTransactionByIdQuery(id);
@@ -38,6 +40,7 @@ using MediatR;
      }
  
      [HttpPost]
+     [Authorize(Roles = "admin,user")]
      public async Task<ApiResponse<TransactionResponse>> Post([FromBody] EftTransactionRequest EftTransaction)
      {
          var operation = new CreateEftTransactionCommand(EftTransaction);

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
  
  [ApiController]
  [Route("api/[controller]")]
- [Authorize]
+ //[Authorize]
  public class UsersController : ControllerBase
  {
      private readonly IMediator mediator;
@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Authorization;
  
  
      [HttpGet("GetAll")]
+     [Authorize(Roles = "admin")]
      public async Task<ApiResponse<List<UserResponse>>> GetAll()
      {
          var operation = new GetAllUsersQuery();
@@ -31,6 +32,7 @@ using Microsoft.AspNetCore.Authorization;
      }
  
      [HttpGet("GetById/{id}")]
+     [Authorize(Roles = "admin")]
      public async Task<ApiResponse<UserResponse>> GetByIdAsync([FromRoute] int id)
      {
          var operation = new GetUserByIdQuery(id);
@@ -39,6 +41,7 @@ using Microsoft.AspNetCore.Authorization;
      }
  
      [HttpPost]
+     [Authorize(Roles = "admin")]
      public async Task<ApiResponse<UserResponse>> Post([FromBody] UserRequest User)
      {
          var operation = new CreateUserCommand(User);
@@ -47,6 +50,7 @@ using Microsoft.AspNetCore.Authorization;
      }
  
      [HttpPut("{id}")]
+     [Authorize(Roles = "admin")]
      public async Task<ApiResponse> Put([FromRoute] int id, [FromBody] UserRequest User)
      {
          var operation = new UpdateUserCommand(id,User);
@@ -54,6 +58,7 @@ using Microsoft.AspNetCore.Authorization;
          return result;
      }
      [HttpDelete("{id}")]
+     [Authorize(Roles = "admin")]
      public async Task<ApiResponse> Delete([FromRoute] int id)
      {
          var operation = new DeleteUserCommand(id);

@@ -12,7 +12,7 @@ using MediatR;
  
  [ApiController]
  [Route("api/[controller]")]
- [Authorize]
+ //[Authorize]
  public class AccountsController : ControllerBase
  {
      private readonly IMediator mediator;
@@ -23,6 +23,7 @@ using MediatR;
  
  
      [HttpGet("GetAll")]
+      [Authorize(Roles = "admin,user")]
      public async Task<ApiResponse<List<AccountResponse>>> GetAll()
      {
          var operation = new GetAllAccountsQuery();
@@ -31,6 +32,7 @@ using MediatR;
      }
  
      [HttpGet("GetById/{id}")]
+      [Authorize(Roles = "admin,user")]
      public async Task<ApiResponse<AccountResponse>> GetByIdAsync([FromRoute] int id)
      {
          var operation = new GetAccountByIdQuery(id);
@@ -38,7 +40,9 @@ using MediatR;
          return result;
      }
  
-     [HttpPost()]
+     //[HttpPost()]
+      [HttpPost]
+     [Authorize(Roles = "admin,user")]
      public async Task<ApiResponse<AccountResponse>> Post([FromBody] AccountRequest Account)
      {
          var operation = new CreateAccountCommand(Account);
@@ -47,6 +51,7 @@ using MediatR;
      }
  
      [HttpPut("{id}")]
+     [Authorize(Roles = "admin,user")]
      public async Task<ApiResponse> Put([FromRoute] int id, [FromBody] AccountRequest Account)
      {
          var operation = new UpdateAccountCommand(id,Account);
@@ -54,6 +59,7 @@ using MediatR;
          return result;
      }
      [HttpDelete("{id}")]
+     [Authorize(Roles = "admin,user")]
      public async Task<ApiResponse> Delete([FromRoute] int id)
      {
          var operation = new DeleteAccountCommand(id);

@@ -73,7 +73,7 @@ using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+//[Authorize]
 public class CustomersController : ControllerBase
 {
     private readonly IMediator mediator;
@@ -84,6 +84,7 @@ public class CustomersController : ControllerBase
 
 
     [HttpGet("GetAll")]
+    [Authorize(Roles = "admin,user")]
     public async Task<ApiResponse<List<CustomerResponse>>> GetAll()
     {
         var operation = new GetAllCustomersQuery();
@@ -92,6 +93,7 @@ public class CustomersController : ControllerBase
     }
 
     [HttpGet("GetById/{id}")]
+    [Authorize(Roles = "admin,user")]
     public async Task<ApiResponse<CustomerResponse>> GetByIdAsync([FromRoute] int id)
     {
         var operation = new GetCustomerByIdQuery(id);
@@ -100,6 +102,7 @@ public class CustomersController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "admin")]
     public async Task<ApiResponse<CustomerResponse>> Post([FromBody] CustomerRequest customer)
     {
         var operation = new CreateCustomerCommand(customer);
@@ -108,6 +111,7 @@ public class CustomersController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "admin")]
     public async Task<ApiResponse> Put([FromRoute] int id, [FromBody] CustomerRequest customer)
     {
         var operation = new UpdateCustomerCommand(id,customer);
@@ -115,6 +119,7 @@ public class CustomersController : ControllerBase
         return result;
     }
     [HttpDelete("{id}")]
+    [Authorize(Roles = "admin")]
     public async Task<ApiResponse> Delete([FromRoute] int id)
     {
         var operation = new DeleteCustomerCommand(id);
@@ -122,7 +127,7 @@ public class CustomersController : ControllerBase
         return result;
     }
 
-       [HttpGet("ByParameters")]
+    [HttpGet("ByParameters")]
     
      public async Task<ApiResponse<List<CustomerResponse>>> GetByParameters([FromQuery] string? firstName, [FromQuery] string? lastName, [FromQuery] string? email)
      {

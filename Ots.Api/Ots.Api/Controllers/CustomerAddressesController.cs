@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+//[Authorize]
 public class CustomerAddresssController : ControllerBase
 {
     private readonly IMediator mediator;
@@ -22,7 +22,7 @@ public class CustomerAddresssController : ControllerBase
 
 
     [HttpGet("GetAll")]
-  
+  [Authorize(Roles = "admin,user")]
     public async Task<ApiResponse<List<CustomerAddressResponse>>> GetAll()
     {
         var operation = new GetAllCustomerAddressQuery();
@@ -31,6 +31,7 @@ public class CustomerAddresssController : ControllerBase
     }
 
     [HttpGet("GetById/{id}")]
+    [Authorize(Roles = "admin,user")]
     public async Task<ApiResponse<CustomerAddressResponse>> GetByIdAsync([FromRoute] int id)
     {
         var operation = new GetCustomerAddressByIdQuery(id);
@@ -48,7 +49,7 @@ public class CustomerAddresssController : ControllerBase
     }
 
     [HttpPut("{id}")]
-
+    [Authorize(Roles = "admin,user")]
     public async Task<ApiResponse> Put([FromRoute] int id, [FromBody] CustomerAddressRequest CustomerAddress)
     {
         var operation = new UpdateCustomerAddressCommand(id,CustomerAddress);
@@ -56,6 +57,7 @@ public class CustomerAddresssController : ControllerBase
         return result;
     }
     [HttpDelete("{id}")]
+    [Authorize(Roles = "admin,user")]
   
     public async Task<ApiResponse> Delete([FromRoute] int id)
     {

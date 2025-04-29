@@ -65,7 +65,8 @@ using AutoMapper;
          mapped.IsActive = true;
          mapped.Secret = PasswordGenerator.GeneratePassword(30);
  
-         var password = PasswordGenerator.GeneratePassword(6);
+         //var password = PasswordGenerator.GeneratePassword(6);
+         var password = "123456";
          mapped.Password = PasswordGenerator.CreateMD5(password, mapped.Secret);
  
          var entity = await dbContext.AddAsync(mapped, cancellationToken);

@@ -11,7 +11,7 @@ using MediatR;
  
  [ApiController]
  [Route("api/[controller]")]
- [Authorize]
+ //[Authorize]
  public class MoneyTransfersController : ControllerBase
  {
      private readonly IMediator mediator;
@@ -21,6 +21,7 @@ using MediatR;
      }
  
      [HttpGet("GetByParameters")]
+     [Authorize(Roles = "admin,user")]
      public async Task<ApiResponse<List<MoneyTransferResponse>>> GetByParameters()
      {
          var operation = new GetMoneyTransferByParametersQuery();
@@ -29,6 +30,7 @@ using MediatR;
      }
  
      [HttpGet("GetById/{id}")]
+     [Authorize(Roles = "admin,user")]
      public async Task<ApiResponse<MoneyTransferResponse>> GetByIdAsync([FromRoute] int id)
      {
          var operation = new GetMoneyTransferByIdQuery(id);
@@ -37,6 +39,7 @@ using MediatR;
      }
  
      [HttpPost]
+     [Authorize(Roles = "user")]
      public async Task<ApiResponse<TransactionResponse>> Post([FromBody] MoneyTransferRequest MoneyTransfer)
      {
          var operation = new CreateMoneyTransferCommand(MoneyTransfer);
